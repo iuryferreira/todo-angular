@@ -1,0 +1,61 @@
+<section class="hero is-small is-success">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title has-text-centered">
+                Lista de Tarefas
+            </h1>
+            <div class="container is-fluid">
+                <form [formGroup]="form">
+                    <div class="field has-addons">
+                        <div class="control is-expanded">
+                            <input class="input" type="text" placeholder="Digite a tarefa..." formControlName="text">
+                        </div>
+                        <div class="control">
+                            <button class="button" [disabled]="form.invalid" (click)="add()">
+                                <span class="icon is-small">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container mt-2">
+    <ul>
+        <div class="columns is-mobile">
+            <div class="column is-12">
+                <div *ngIf="todos.length==0">
+                    <p class=" has-text-centered mt-6"><i class="fas fa-hand-sparkles has-text-grey"
+                            style="font-size: 10rem;"></i>
+                    </p>
+                    <p class="has-text-centered mt-6">
+                        <small> Você não tem nenhuma tarefa hoje!</small>
+                    </p>
+                </div>
+                <li *ngFor="let todo of todos" class="mt-2">
+                    <div class="box">
+                        <div class="columns is-vcentered is-mobile">
+                            <div class="column is-10">
+                                <p *ngIf="!todo.done">{{todo.text}}</p>
+                                <s *ngIf="todo.done">{{todo.text}}</s>
+                            </div>
+                            <div class="column is-2 ml-6">
+                                <button *ngIf="!todo.done" (click)="done(todo)" class="button is-small is-white"><i
+                                        class="far fa-check-circle"></i></button>
+                                <button *ngIf="todo.done" (click)="undone(todo)"
+                                    class="button is-small is-white has-text-success"><i
+                                        class="fas fa-check-circle"></i></button>
+                                <button (click)="remove(todo)" class="button is-small is-white"><i
+                                        class="far fa-trash-alt has-text-danger"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </div>
+    </ul>
+</section>
